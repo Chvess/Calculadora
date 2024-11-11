@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+        }
+        .fundo {
+            background-image: linear-gradient(45deg, black, crimson);
+            height: 100vh;
+            color: white;
+            text-align: center;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column; /* Para empilhar o nome e a calculadora */
+        }
+        .calculadora {
+            background-color: rgba(0, 0, 0.8);
+            border-radius: 15px;
+            padding: 15px;
+            display: inline-block;
+        }
+        #resultado {
+            width: 100%;
+            background-color: white;
+            color: black;
+            height: 40px;
+            font-size: 24px;
+            text-align: right;
+            padding: 5px;
+            margin-bottom: 10px;
+        }
+        table {
+            border-spacing: 5px;
+        }
+        .botao {
+            width: 50px;
+            height: 50px;
+            font-size: 25px;
+            cursor: pointer;
+            background-color: rgb(31,31,31);
+            border: none;
+            color: white;
+            transition: background-color 0.2s;
+        }
+        .botao:hover {
+            background-color: black;
+        }
+        .botao:active {
+            background-color: grey;
+        }
+        .botao-grande {
+            width: 106px;
+        }
+        .botao-largo {
+            width: 106px;
+            height: 106px;
+        }
+        .nome {
+            font-size: 32px;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="fundo">
+        <div class="nome">
+            Luiz Eduardo de Chaves
+        </div>
+        <div class="calculadora">
+            <h1>Calculadora</h1>
+            <input type="text" id="resultado" disabled />
+            <table>
+                <tr>
+                    <td><button class="botao" onclick="clearResult()">C</button></td>
+                    <td><button class="botao" onclick="backspace()">←</button></td>
+                    <td><button class="botao" onclick="appendToResult('/')">/</button></td>
+                    <td><button class="botao" onclick="appendToResult('*')">X</button></td>
+                </tr>
+                <tr>
+                    <td><button class="botao" onclick="appendToResult('7')">7</button></td>
+                    <td><button class="botao" onclick="appendToResult('8')">8</button></td>
+                    <td><button class="botao" onclick="appendToResult('9')">9</button></td>
+                    <td><button class="botao" onclick="appendToResult('-')">-</button></td>
+                </tr>
+                <tr>
+                    <td><button class="botao" onclick="appendToResult('4')">4</button></td>
+                    <td><button class="botao" onclick="appendToResult('5')">5</button></td>
+                    <td><button class="botao" onclick="appendToResult('6')">6</button></td>
+                    <td><button class="botao" onclick="appendToResult('+')">+</button></td>
+                </tr>
+                <tr>
+                    <td><button class="botao" onclick="appendToResult('1')">1</button></td>
+                    <td><button class="botao" onclick="appendToResult('2')">2</button></td>
+                    <td><button class="botao" onclick="appendToResult('3')">3</button></td>
+                    <td rowspan="2"><button class="botao botao-largo" onclick="calculate()">=</button></td>
+                </tr>
+                <tr>
+                    <td colspan="2"><button class="botao botao-grande" onclick="appendToResult('0')">0</button></td>
+                    <td><button class="botao" onclick="appendToResult('.')">.</button></td>
+                </tr>
+            </table>
+        </div>
+    </div>
+
+    <script>
+        function clearResult() {
+            document.getElementById("resultado").value = '';
+        }
+
+        function backspace() {
+            let currentValue = document.getElementById("resultado").value;
+            document.getElementById("resultado").value = currentValue.slice(0, -1);
+        }
+
+        function appendToResult(value) {
+            document.getElementById("resultado").value += value;
+        }
+
+        function calculate() {
+            let expression = document.getElementById("resultado").value;
+            try {
+                document.getElementById("resultado").value = eval(expression);
+            } catch (e) {
+                document.getElementById("resultado").value = "Erro";
+            }
+        }
+    </script>
+</body>
+</html>
